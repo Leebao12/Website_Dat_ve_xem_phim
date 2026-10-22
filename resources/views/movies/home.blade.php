@@ -1,0 +1,8 @@
+@extends('layouts.site')
+@section('title','CINEMAX – Trang chủ')
+@section('content')
+<section class="hero"><div class="container hero-inner"><div class="hero-copy"><span class="overline">CINEMAX · ĐIỆN ẢNH ĐÍCH THỰC</span><h1>CHẠM VÀO<br><em>THẾ GIỚI ĐIỆN ẢNH.</em></h1><p>Khám phá phim hay, chọn ghế yêu thích và đặt vé nhanh chóng trong vài bước.</p><div class="d-flex gap-3 flex-wrap"><a class="btn btn-hot btn-lg" href="{{ route('movies.index') }}">Khám phá phim →</a><a class="btn btn-outline-light btn-lg" href="#suat-chieu">Suất chiếu hôm nay</a></div></div><img class="hero-logo" src="{{ asset('assets/brand/cinemax-wordmark.png') }}" alt="CINEMAX"></div></section>
+<section class="container section-block"><div class="section-heading"><div><span class="overline">ON SCREEN</span><h2>Phim đang chiếu & sắp chiếu</h2></div><a class="section-link" href="{{ route('movies.index') }}">Tất cả phim ↗</a></div>
+<div class="movie-grid">@forelse($movies as $movie)@include('components.movie-card',['movie'=>$movie])@empty<p>Chưa có phim nào.</p>@endforelse</div></section>
+<section id="suat-chieu" class="schedule-section"><div class="container section-block"><div class="section-heading"><div><span class="overline">BOOK YOUR MOMENT</span><h2>Suất chiếu sắp tới</h2></div></div><div class="schedule-list">@forelse($upcoming as $s)<div class="schedule-item"><div class="schedule-date">{{ $s->show_date->format('d/m') }}<small>{{ $s->starts_at->format('H:i') }}</small></div><div class="flex-grow-1"><h4>{{ $s->movie->title }}</h4><p class="m-0">{{ $s->room->name }} · {{ $s->movie->duration }} phút</p></div><a class="btn btn-hot" href="{{ route('booking.create',$s) }}">Chọn ghế</a></div>@empty<p>Chưa có suất chiếu sắp tới.</p>@endforelse</div></div></section>
+@endsection

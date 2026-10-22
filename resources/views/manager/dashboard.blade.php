@@ -1,0 +1,6 @@
+@extends('layouts.manager')
+@section('heading','Tổng quan rạp')
+@section('panel')
+<div class="row g-3">@foreach([['Phim',$stats['movies']],['Phòng chiếu',$stats['rooms']],['Suất hôm nay',$stats['showtimes']],['Đơn đặt vé',$stats['bookings']]] as $stat)<div class="col-sm-6 col-xl-3"><div class="stat-card"><span>{{ $stat[0] }}</span><strong>{{ $stat[1] }}</strong></div></div>@endforeach</div><div class="stat-card mt-3"><span>Tổng doanh thu từ đơn đã thanh toán</span><strong class="text-orange">{{ number_format($stats['revenue'],0,',','.') }}đ</strong><a class="text-orange" href="{{ route('manager.revenue') }}">Xem thống kê →</a></div>
+<div class="panel-card mt-4"><div class="d-flex justify-content-between align-items-center"><h3>Đơn đặt vé gần đây</h3><a class="text-orange" href="{{ route('manager.orders.index') }}">Xem tất cả</a></div><div class="table-responsive"><table class="table table-dark-custom"><thead><tr><th>Mã đơn</th><th>Khách hàng</th><th>Phim</th><th>Tổng</th><th>Trạng thái</th></tr></thead><tbody>@foreach($latest as $b)<tr><td><a href="{{ route('booking.show',$b) }}">{{ $b->booking_code }}</a></td><td>{{ $b->user->name }}</td><td>{{ $b->showtime->movie->title }}</td><td>{{ number_format($b->total_amount,0,',','.') }}đ</td><td>{{ $b->status }}</td></tr>@endforeach</tbody></table></div></div>
+@endsection

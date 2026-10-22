@@ -1,0 +1,7 @@
+@extends('layouts.site')
+@section('title','Danh sách phim | CINEMAX')
+@section('content')
+<section class="page-banner"><div class="container"><span class="overline">CINEMAX MOVIES</span><h1>Thế giới phim ảnh</h1><p>Tìm kiếm, lọc thể loại và chọn phim yêu thích.</p></div></section>
+<div class="container section-block"><form method="get" class="filter-bar row g-2"><div class="col-md-5"><input class="form-control" name="q" value="{{ request('q') }}" placeholder="Tìm theo tên phim..."></div><div class="col-md-3"><select class="form-select" name="category"><option value="">Mọi thể loại</option>@foreach($categories as $c)<option value="{{ $c->id }}" @selected(request('category')==$c->id)>{{ $c->name }}</option>@endforeach</select></div><div class="col-md-2"><select class="form-select" name="status"><option value="">Tất cả</option><option value="dang_chieu" @selected(request('status')==='dang_chieu')>Đang chiếu</option><option value="sap_chieu" @selected(request('status')==='sap_chieu')>Sắp chiếu</option></select></div><div class="col-md-2"><button class="btn btn-hot w-100">Tìm phim</button></div></form>
+<div class="movie-grid mt-4">@forelse($movies as $movie)@include('components.movie-card',['movie'=>$movie])@empty<div class="empty-state">Không tìm thấy bộ phim nào phù hợp.</div>@endforelse</div><div class="mt-4">{{ $movies->links('pagination::bootstrap-5') }}</div></div>
+@endsection

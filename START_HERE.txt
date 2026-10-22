@@ -1,0 +1,27 @@
+CINEMAX - HƯỚNG DẪN NHANH CHO ANH
+================================
+1. Giải nén thư mục cinemax vào C:\laragon\www\cinemax
+2. Bật Laragon (PHP 8.3+ và MySQL).
+3. Mở Terminal trong C:\laragon\www\cinemax, chạy:
+   composer install
+   copy .env.example .env
+   php artisan key:generate
+4. Tạo database MySQL tên: cinemax
+5. Kiểm tra DB_* trong .env rồi chạy:
+   php artisan migrate --seed
+   php artisan storage:link
+   php artisan serve
+6. Mở http://127.0.0.1:8000
+
+DEMO (cùng mật khẩu Demo@12345):
+  admin@cinemax.test
+  manager@cinemax.test
+  customer@cinemax.test
+
+Quy trình thử: Khách đăng nhập -> Phim -> Chọn lịch -> Ghế -> Combo
+-> Đơn đặt vé -> Thanh toán sandbox -> Vé của tôi.
+
+XEM FILE README.md ĐỂ CÓ HƯỚNG DẪN ĐẦY ĐỦ VÀ CÁC GIỚI HẠN.
+
+CHÚ Ý: thư mục vendor không kèm theo; composer install cần Internet.
+KHÔNG dùng migrate:fresh trên CSDL có dữ liệu cần giữ.
